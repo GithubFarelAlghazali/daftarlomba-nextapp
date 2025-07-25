@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import Link from "../../../node_modules/next/link";
 import { useState } from "react";
+import Alert from "../../components/Alert";
 
 export default function Register() {
      const { push } = useRouter();
@@ -42,7 +43,7 @@ export default function Register() {
           <>
                <main className="min-h-screen bg-white text-gray-800 py-20 px-4 ">
                     <div className="max-w-xl mx-auto relative">
-                         {error && <p className="text-red-900 bg-red-100 p-8 rounded-md absolute -top-8 left-5 right-5 text-center">{error}</p>}
+                         {error && <Alert message={error} />}
                          <h1 className="text-3xl font-bold text-red-700 mb-8 text-center">Formulir Pendaftaran</h1>
                          <p className="text-center pb-10">
                               Sudah punya akun?{" "}
