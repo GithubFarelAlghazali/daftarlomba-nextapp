@@ -1,4 +1,5 @@
 import { useRouter } from "next/router";
+import Head from "next/head";
 import Link from "../../../node_modules/next/link";
 import { useState } from "react";
 import Alert from "../../components/Alert";
@@ -42,8 +43,12 @@ export default function Register() {
 
      return (
           <>
+               <Head>
+                    <title>Pendaftaran Peserta - HUT RI 80</title>
+                    <meta name="description" content="Dashboard peserta lomba HUT RI 80" />
+               </Head>
                <main className="min-h-screen bg-white text-gray-800 py-20 px-4 ">
-                    <div className="max-w-xl mx-auto relative">
+                    <div className="max-w-md mx-auto relative">
                          {error && <Alert message={error} />}
                          <h1 className="text-3xl font-bold text-red-700 mb-8 text-center">Formulir Pendaftaran</h1>
                          <p className="text-center pb-10">
@@ -53,7 +58,7 @@ export default function Register() {
                               </Link>{" "}
                          </p>
 
-                         <form onSubmit={handleSubmit} className="space-y-6 bg-red-50 p-8 rounded-xl shadow">
+                         <form onSubmit={handleSubmit} className="space-y-3 bg-red-50 p-8 rounded-xl shadow">
                               <div>
                                    <label htmlFor="nama" className="block font-semibold text-red-700 mb-1">
                                         Nama

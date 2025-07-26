@@ -1,3 +1,4 @@
+import { signIn } from "next-auth/react";
 import Link from "../../../node_modules/next/link";
 
 const Navbar = () => {
@@ -15,7 +16,7 @@ const Navbar = () => {
                          <Link href="#timeline">Timeline</Link>
                     </li>
                     <li>
-                         <Link href="/login">Daftar</Link>
+                         <button onClick={() => signIn()}>Daftar</button>
                     </li>
                </ul>
           </nav>

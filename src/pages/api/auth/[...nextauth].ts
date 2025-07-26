@@ -1,6 +1,7 @@
 import NextAuth, { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { signUp } from "@/lib/firebase/service";
+import { signIn } from "@/lib/firebase/service";
+import { compare } from "bcrypt";
 
 const authOptions: NextAuthOptions = {
      session: {
@@ -22,10 +23,47 @@ const authOptions: NextAuthOptions = {
                          email: string;
                          password: string;
                     };
-                    const user: any = await signUp({});
+                    const user: any = await signIn({
+                         email,
+                    });
+
+                    if (user) {
+                         // cek apakah password valid
+                         const confirmPassword = await compare(password, user.password);
+                         if (confirmPassword) {
+                              return user;
+                         } else {
+                              return null;
+                         }
+                    }
                },
           }),
      ],
-     callbacks: {},
-     pages: {},
+     callbacks: {
+          jwt({ token, account, user }: any) {
+               if (account?.provider === "credentials") {
+                    token.email = user.email;
+                    token.nama = user.nama;
+                    token.role = user.role;
+               }
+               return token;
+          },
+          async session({ session, token }: any) {
+               if ("email" in token) {
+                    session.user.email = token.email;
+               }
+               if ("nama" in token) {
+                    session.user.nama = token.nama;
+               }
+               if ("role" in token) {
+                    session.user.role = token.role;
+               }
+               return session;
+          },
+     },
+     pages: {
+          signIn: "/login",
+     },
 };
+
+export default NextAuth(authOptions);
