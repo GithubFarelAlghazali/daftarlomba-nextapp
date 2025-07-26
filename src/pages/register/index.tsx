@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 import Link from "../../../node_modules/next/link";
 import { useState } from "react";
 import Alert from "../../components/Alert";
+import { LoadingIcon } from "../../../public/icons";
 
 export default function Register() {
      const { push } = useRouter();
@@ -85,8 +86,8 @@ export default function Register() {
                                    </select>
                               </div>
 
-                              <button type="submit" className="w-full bg-red-700 text-white font-semibold py-2 rounded hover:bg-red-800 transition">
-                                   Daftar Sekarang
+                              <button type="submit" disabled={loading} className="w-full bg-red-700 text-white font-semibold py-2 rounded hover:bg-red-800 transition">
+                                   {loading ? <LoadingIcon className="size-7 text-white mx-auto" /> : "Daftar"}
                               </button>
                          </form>
                     </div>
