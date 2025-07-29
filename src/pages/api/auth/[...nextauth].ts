@@ -44,6 +44,7 @@ const authOptions: NextAuthOptions = {
                if (account?.provider === "credentials") {
                     token.email = user.email;
                     token.nama = user.nama;
+                    token.bidang = user.bidang;
                     token.role = user.role;
                }
                return token;
@@ -54,6 +55,9 @@ const authOptions: NextAuthOptions = {
                }
                if ("nama" in token) {
                     session.user.nama = token.nama;
+               }
+               if ("bidang" in token) {
+                    session.user.bidang = token.bidang;
                }
                if ("role" in token) {
                     session.user.role = token.role;

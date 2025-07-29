@@ -21,7 +21,7 @@ export default function Register() {
                password: form.password.value,
           };
 
-          const callbackUrl: any = query.callbackUrl || "/";
+          const callbackUrl: string = "/dashboard";
 
           try {
                const res = await signIn("credentials", {
