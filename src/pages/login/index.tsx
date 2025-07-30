@@ -7,7 +7,7 @@ import { LoadingIcon } from "../../../public/icons";
 import { signIn } from "next-auth/react";
 
 export default function Register() {
-     const { push, query } = useRouter();
+     const { push } = useRouter();
      const [error, setError] = useState("");
      const [loading, setLoading] = useState(false);
 
