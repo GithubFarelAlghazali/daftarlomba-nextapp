@@ -19,7 +19,35 @@ const Navbar = () => {
                     link: "#timeline",
                },
           ],
-          dahsboardMenu: [
+          participantMenu: [
+               {
+                    label: "Data pribadi",
+                    link: "#data",
+               },
+               {
+                    label: "Upload karya",
+                    link: "#upload",
+               },
+               {
+                    label: "Pengumuman",
+                    link: "#pengumuman",
+               },
+          ],
+          juriMenu: [
+               {
+                    label: "Data pribadi",
+                    link: "#data",
+               },
+               {
+                    label: "Upload karya",
+                    link: "#upload",
+               },
+               {
+                    label: "Pengumuman",
+                    link: "#pengumuman",
+               },
+          ],
+          adminMenu: [
                {
                     label: "Data pribadi",
                     link: "#data",
@@ -34,24 +62,34 @@ const Navbar = () => {
                },
           ],
      };
+
+     let navMenu;
+
+     switch (path) {
+          case "/":
+               navMenu = menu.homeMenu;
+               break;
+          case "/dashboard/participant":
+               navMenu = menu.participantMenu;
+               break;
+          case "/dashboard/juri":
+               navMenu = menu.juriMenu;
+               break;
+          case "/dashboard":
+               navMenu = menu.juriMenu;
+               break;
+     }
+
      return (
           <nav className="bg-red-700 text-white flex justify-between p-4 fixed top-2 left-2 right-2 rounded-md shadow-2xl">
                <h3 className="text-xl font-semibold">Semarak Kemerdekaan</h3>
-               <ul className="flex justify-evenly gap-5 *:*:hover:underline *:*:hover:cursor-pointer">
-                    {path === "/"
-                         ? menu.homeMenu.map((item, index) => (
-                                <li key={index}>
-                                     <Link href={item.link}>{item.label}</Link>
-                                </li>
-                           ))
-                         : menu.dahsboardMenu.map((item, index) => (
-                                <li key={index}>
-                                     <Link href={item.link} key={index}>
-                                          {item.label}
-                                     </Link>
-                                </li>
-                           ))}
-                    <li>{path === "/" ? <button onClick={() => signIn()}>Daftar</button> : <button onClick={() => signOut({ callbackUrl: "/" })}>LogOut</button>}</li>
+               <ul className="flex justify-evenly items-center gap-5 *:*:hover:underline *:*:hover:cursor-pointer">
+                    {navMenu.map((item, index) => (
+                         <li key={index}>
+                              <Link href={item.link}>{item.label}</Link>
+                         </li>
+                    ))}
+                    <li className="bg-white p-2 text-red-800 rounded-sm">{path === "/" ? <button onClick={() => signIn()}>Daftar</button> : <button onClick={() => signOut({ callbackUrl: "/" })}>LogOut</button>}</li>
                </ul>
           </nav>
      );

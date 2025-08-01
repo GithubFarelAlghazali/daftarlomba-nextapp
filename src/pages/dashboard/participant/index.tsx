@@ -2,24 +2,39 @@ import { useSession } from "next-auth/react";
 import Head from "next/head";
 import Navbar from "@/components/Navbar";
 
-export default function DashboardAdmin() {
+export default function DashboardPeserta() {
      const { data }: any = useSession();
 
      return (
           <>
                <Head>
-                    <title>Dashboard Admin - HUT RI 80</title>
+                    <title>Dashboard Peserta - HUT RI 80</title>
                     <meta name="description" content="Dashboard peserta lomba HUT RI 80" />
                </Head>
                <Navbar />
                <main className="min-h-screen bg-white text-gray-800 py-16 px-4">
                     {data && (
                          <div className="max-w-5xl mx-auto space-y-16">
-                              <h1 className="mt-12 text-3xl font-bold text-red-700">Dashboard Admin</h1>
+                              <h1 className="mt-12 text-3xl font-bold text-red-700">Dashboard Peserta</h1>
 
                               <section className="bg-red-50 p-6 rounded-lg shadow">
-                                   <h3 className="text-2xl font-bold text-red-700">Admin</h3>
+                                   <h3 className="text-2xl font-bold text-red-700">Hai, {data.user.nama}.</h3>
                                    <p>Lengkapi langkah-langkah di bawah untuk mengikuti Lomba Semarak Kemerdekaan bidang Desain Poster</p>
+                              </section>
+
+                              <section>
+                                   <h2 className="text-2xl font-semibold text-red-700 mb-4">Kelengkapan Data Pribadi</h2>
+                                   <div className="bg-red-50 p-6 rounded-lg shadow">
+                                        <p className="text-gray-700 mb-2">
+                                             Nama: <span className="font-medium">{data.user.nama}</span>
+                                        </p>
+                                        <p className="text-gray-700 mb-2">
+                                             Email: <span className="font-medium">{data.user.email}</span>
+                                        </p>
+                                        <p className="text-gray-700">
+                                             Bidang Lomba: <span className="font-medium">{data.user.bidang}</span>
+                                        </p>
+                                   </div>
                               </section>
 
                               <section>

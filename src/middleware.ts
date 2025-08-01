@@ -7,4 +7,4 @@ function mainMiddleware(req: NextRequest) {
      return res;
 }
 
-export default withAuth(mainMiddleware, ["/dashboard"]);
+export default withAuth(mainMiddleware, ["/dashboard", "/dashboard/participant", "/dashboard/juri"]);

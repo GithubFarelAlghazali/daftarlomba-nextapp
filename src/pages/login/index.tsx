@@ -4,7 +4,7 @@ import Link from "../../../node_modules/next/link";
 import { useState } from "react";
 import Alert from "../../components/Alert";
 import { LoadingIcon } from "../../../public/icons";
-import { signIn } from "next-auth/react";
+import { signIn, getSession } from "next-auth/react";
 
 export default function Register() {
      const { push } = useRouter();
@@ -21,18 +21,28 @@ export default function Register() {
                password: form.password.value,
           };
 
-          const callbackUrl: string = "/dashboard";
-
           try {
                const res = await signIn("credentials", {
                     redirect: false,
                     email: data.email,
                     password: data.password,
-                    callbackUrl,
                });
                if (!res?.error) {
+                    const session = await getSession();
+                    const role = session?.user?.role;
+
+                    switch (role) {
+                         case "participant":
+                              push("/dashboard/participant");
+                              break;
+                         case "juri":
+                              push("/dashboard/juri");
+                              break;
+                         case "admin":
+                              push("/dashboard");
+                              break;
+                    }
                     setLoading(false);
-                    push(callbackUrl);
                } else {
                     setLoading(false);
                     setError("Email atau password tidak sesuai");
