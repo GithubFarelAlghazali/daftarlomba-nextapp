@@ -60,9 +60,9 @@ export default function Register() {
                     <meta name="description" content="Dashboard peserta lomba HUT RI 80" />
                </Head>
                <main className="min-h-screen bg-white text-gray-800 py-20 px-4 ">
-                    <div className="max-w-md mx-auto relative">
+                    <div className="max-w-sm mx-auto relative">
                          {error && <Alert message={error} />}
-                         <h1 className="text-3xl font-bold text-red-700 mb-8 text-center">Formulir Pendaftaran</h1>
+                         <h1 className="text-3xl font-bold text-red-700 mb-8 text-center">LogIn</h1>
                          <p className="text-center pb-10">
                               Belum punya akun?{" "}
                               <Link href="/register" className="underline">
@@ -70,19 +70,19 @@ export default function Register() {
                               </Link>{" "}
                          </p>
 
-                         <form onSubmit={handleSubmit} className="space-y-3 bg-red-50 p-8 rounded-xl shadow">
+                         <form onSubmit={handleSubmit} className="space-y-3 bg-red-50  p-8 rounded-xl shadow-md">
                               <div>
                                    <label htmlFor="email" className="block font-semibold text-red-700 mb-1">
                                         Email
                                    </label>
-                                   <input type="email" id="email" name="email" className="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-red-700" required />
+                                   <input type="email" id="email" name="email" className="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-red-700 bg-white" required />
                               </div>
 
                               <div>
                                    <label htmlFor="password" className="block font-semibold text-red-700 mb-1">
                                         Password
                                    </label>
-                                   <input type="password" id="password" name="password" className="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-red-700" required />
+                                   <input type="password" id="password" name="password" className="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-red-700 bg-white" required />
                               </div>
 
                               <button type="submit" disabled={loading} className="w-full bg-red-700 text-white font-semibold py-2 rounded hover:bg-red-800 transition">
