@@ -1,5 +1,5 @@
 import Navbar from "@/components/Navbar/index";
-
+import { signIn } from "next-auth/react";
 
 export default function Home() {
   const bidangLomba = [
@@ -37,14 +37,15 @@ export default function Home() {
      <Navbar/>
 
       <main className="bg-white text-gray-800">
-        <section className="bg-red-700 text-white py-32 text-center px-4 ">
-          <div className="max-w-4xl mx-auto">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">
+        <section className=" text-white  text-center bg-[url('/bg.jpg')]  bg-cover bg-no-repeat" >
+          <div className=" py-40 bg-[rgb(0,0,0,0.5)] w-full h-full px-2">
+            <h1 className=" text-3xl md:text-5xl font-bold mb-4">
               Semarak Kemerdekaan - HUT RI 80
             </h1>
             <p className="text-lg md:text-xl">
               Rayakan Hari Kemerdekaan dengan kreativitas dan semangat juang!
             </p>
+            <button className="bg-red-800 p-2 rounded-md mt-5 md:hidden" onClick={()=>{signIn()}}>Daftar sekarang!</button>
           </div>
         </section>
 
@@ -81,7 +82,7 @@ export default function Home() {
           </div>
         </section>
 
-        <footer className="bg-red-700 text-white text-center py-6">
+        <footer className="bg-red-700 text-white text-center py-6 absolute left-0 right-0 -z-10">
           <p>&copy; 2025 Panitia Lomba HUT RI 80. Merdeka!</p>
         </footer>
       </main>
