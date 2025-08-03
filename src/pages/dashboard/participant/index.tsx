@@ -12,7 +12,7 @@ export default function DashboardPeserta() {
                     <meta name="description" content="Dashboard peserta lomba HUT RI 80" />
                </Head>
                <Navbar />
-               <main className="min-h-screen bg-white text-gray-800 py-16 px-4">
+               <main className="min-h-screen bg-white text-gray-800 py-16 px-4 ">
                     {data && (
                          <div className="max-w-5xl mx-auto space-y-16">
                               <h1 className="mt-12 text-3xl font-bold text-red-700">Dashboard Peserta</h1>
@@ -22,7 +22,7 @@ export default function DashboardPeserta() {
                                    <p>Lengkapi langkah-langkah di bawah untuk mengikuti Lomba Semarak Kemerdekaan bidang Desain Poster</p>
                               </section>
 
-                              <section>
+                              <section className="scroll-mt-20" id="data">
                                    <h2 className="text-2xl font-semibold text-red-700 mb-4">Kelengkapan Data Pribadi</h2>
                                    <div className="bg-red-50 p-6 rounded-lg shadow">
                                         <p className="text-gray-700 mb-2">
@@ -37,7 +37,7 @@ export default function DashboardPeserta() {
                                    </div>
                               </section>
 
-                              <section>
+                              <section className="scroll-mt-20" id="upload">
                                    <h2 className="text-2xl font-semibold text-red-700 mb-4">Upload Karya</h2>
                                    <form className="bg-red-50 p-6 rounded-lg shadow space-y-4">
                                         <label className="block text-gray-700 font-medium">Unggah file karya kamu (PDF, MP4, MP3):</label>
@@ -48,7 +48,7 @@ export default function DashboardPeserta() {
                                    </form>
                               </section>
 
-                              <section>
+                              <section className="scroll-mt-20" id="pengumuman">
                                    <h2 className="text-2xl font-semibold text-red-700 mb-4">Pengumuman Hasil</h2>
                                    <div className="bg-white border border-gray-300 rounded-lg p-6 text-center">
                                         <p className="text-gray-700">

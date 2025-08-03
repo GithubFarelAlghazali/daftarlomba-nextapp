@@ -100,13 +100,17 @@ const Navbar = () => {
                     onClick={() => {
                          isOpen ? setIsOpen(false) : setIsOpen(true);
                     }}
-                    className={`cursor-pointer size-8 ${isOpen ? '*:bg-red-800' : '*:bg-white'} z-30 *:w-full *:h-1 flex flex-col justify-evenly rounded-md *:transition-all *:duration-300 md:hidden`}
+                    className={`cursor-pointer size-8 ${isOpen ? "*:bg-red-800" : "*:bg-white"} z-30 *:w-full *:h-1 flex flex-col justify-evenly rounded-md *:transition-all *:duration-300 md:hidden`}
                >
-                    <span className={ `${isOpen && "rotate-45 origin-top-left"}`}></span>
+                    <span className={`${isOpen && "rotate-45 origin-top-left"}`}></span>
                     <span className={`${isOpen && "opacity-0"}`}></span>
                     <span className={`${isOpen && "-rotate-45 origin-top-left translate-y-1 -translate-x-[1px]"}`}></span>
                </div>
-               <ul className={`${isOpen ? "translate-x-0" : 'translate-x-[100vw]' } transition-all duration-300 fixed top-0 left-0 right-0 bottom-0 bg-[rgba(255,255,255,0.8)] text-slate-700 font-semibold  justify-center items-center gap-5 *:*:hover:underline *:*:hover:cursor-pointer flex flex-col md:hidden z-20`}>
+               <ul
+                    className={`${
+                         isOpen ? "translate-x-0" : "translate-x-[100vw]"
+                    } transition-all duration-300 fixed top-0 left-0 right-0 bottom-0 bg-[rgba(255,255,255,0.8)] text-slate-700 font-semibold  justify-center items-center gap-5 *:*:hover:underline *:*:hover:cursor-pointer flex flex-col md:hidden z-20`}
+               >
                     {navMenu.map((item, index) => (
                          <li key={index}>
                               <Link href={item.link}>{item.label}</Link>

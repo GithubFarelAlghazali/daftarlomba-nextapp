@@ -64,3 +64,5 @@ export async function signIn(userData: { email: string }) {
           return null;
      }
 }
+
+export async function getParticipants() {}

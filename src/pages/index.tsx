@@ -36,7 +36,7 @@ export default function Home() {
     <>
      <Navbar/>
 
-      <main className="bg-white text-gray-800">
+      <main className="bg-white text-gray-800 *:scroll-mt-7">
         <section className=" text-white  text-center bg-[url('/bg.jpg')]  bg-cover bg-no-repeat" >
           <div className=" py-40 bg-[rgb(0,0,0,0.5)] w-full h-full px-2">
             <h1 className=" text-3xl md:text-5xl font-bold mb-4">
