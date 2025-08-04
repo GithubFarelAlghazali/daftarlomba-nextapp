@@ -65,4 +65,37 @@ export async function signIn(userData: { email: string }) {
      }
 }
 
-export async function getParticipants() {}
+export async function addParticipant(
+     userData: {
+          email: string;
+          nama: string;
+          bidang: string;
+          karya: string;
+     },
+     callback: (response: { status: boolean; message: string }) => void
+) {
+      await addDoc(collection(firestore, "participants"), userData)
+               .then(() => {
+                    callback({
+                         status: true,
+                         message: "Pendaftaran peserta berhasil!",
+                    });
+               })
+               .catch((error) => {
+                    callback({
+                         status: false,
+                         message: error,
+                    });
+               });
+}
+
+export async function getParticipants(bidang : string) {
+     // const snapshot = await getDocs(collection(firestore, 'users'), where('bidang','==',bidang));
+     const q = query(collection(firestore, "users"), where("bidang", "==", bidang));
+     const snapshot = await getDocs(q)
+     const data = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+     }));
+     return data;
+}

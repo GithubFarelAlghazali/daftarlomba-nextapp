@@ -26,7 +26,7 @@ export default function DashboardJuri() {
 
                               <section>
                                    <h2 className="text-2xl font-semibold text-red-700 mb-4">Daftar Karya</h2>
-                                   <table className="bg-white border border-gray-300 rounded-lg p-6 text-center  w-full">
+                                   <table className="bg-white border-gray-300 border rounded-lg p-6 text-center  w-full" >
                                         <tr className="bg-red-50">
                                              <th>No.</th>
                                              <th>Nama</th>
@@ -37,7 +37,13 @@ export default function DashboardJuri() {
                                              <td>1</td>
                                              <td>Dimas</td>
                                              <td>dimas@mail.id</td>
-                                             <td>karya.com</td>
+                                             <td>poster.jpg</td>
+                                        </tr>
+                                        <tr>
+                                             <td>2</td>
+                                             <td>Dimas</td>
+                                             <td>dimas@mail.id</td>
+                                             <td>poster.jpg</td>
                                         </tr>
                                    </table>
                               </section>
