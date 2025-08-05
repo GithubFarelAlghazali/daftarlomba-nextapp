@@ -1,13 +1,14 @@
 import { useSession } from "next-auth/react";
 import Head from "next/head";
 import Navbar from "@/components/Navbar";
-import { useState, useRef } from "react";
-import { useRouter } from "next/router";
+import { useState } from "react";
+import Alert from "@/components/Alert";
+import { LoadingIcon } from "../../../../public/icons";
 
 export default function DashboardPeserta() {
 	const { data }: any = useSession();
 	const [loading, setLoading] = useState(false);
-	const [error, setError] = useState("");
+	const [alert, setAlert] = useState();
 	let fileType;
 
 	// menyesuaikan jenis file yang bisa diupload berdasarkan bidang lomba
@@ -25,6 +26,8 @@ export default function DashboardPeserta() {
 
 	const handleUpload = async (e: any) => {
 		e.preventDefault();
+		setLoading(true);
+
 		const form = e.target;
 		const fileName = form.file.files[0]?.name;
 		const sendData = {
@@ -43,12 +46,24 @@ export default function DashboardPeserta() {
 
 			const responseData = await result.json();
 			if (result.status === 200) {
-				console.log("berhasil", responseData.message);
+				setAlert({
+					msg: "Karya berhasil diunggah!",
+					type: "success",
+				});
 			} else {
-				console.log("terjadi kesalahan", responseData.message);
+				setAlert({
+					msg: "Karya gagal diunggah",
+					type: "fail",
+				});
 			}
+			setLoading(false);
 		} catch (error) {
+			setAlert({
+				msg: "Karya gagal diunggah",
+				type: "fail",
+			});
 			console.error("Fetch error:", error);
+			setLoading(false);
 		}
 	};
 
@@ -59,6 +74,7 @@ export default function DashboardPeserta() {
 				<meta name="description" content="Dashboard peserta lomba HUT RI 80" />
 			</Head>
 			<Navbar />
+			{alert && <Alert message={alert?.msg} status={alert?.type} />}
 			<main className="min-h-screen bg-white text-gray-800 py-16 px-4 ">
 				{data && (
 					<div className="max-w-5xl mx-auto space-y-16">
@@ -88,9 +104,9 @@ export default function DashboardPeserta() {
 							<h2 className="text-2xl font-semibold text-red-700 mb-4">Upload Karya</h2>
 							<form className="bg-red-50 p-6 rounded-lg shadow space-y-4" onSubmit={handleUpload}>
 								<label className="block text-gray-700 font-medium">Unggah file karya kamu ({fileType}):</label>
-								<input type="file" accept={fileType} className="block w-full border border-gray-300 rounded px-4 py-2" id="file" />
+								<input type="file" accept={fileType} className="block w-full border border-gray-300 rounded px-4 py-2" id="file" required />
 								<button type="submit" className="bg-red-700 text-white px-6 py-2 rounded hover:bg-red-800 transition">
-									Upload
+									{loading ? <LoadingIcon className="size-7 text-white mx-auto" /> : "Upload"}
 								</button>
 							</form>
 						</section>
