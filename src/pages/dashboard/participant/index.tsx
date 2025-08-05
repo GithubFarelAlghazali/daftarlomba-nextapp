@@ -28,6 +28,13 @@ export default function DashboardPeserta() {
           
      }
 
+     const handleUpload = (e: any) => {
+          e.preventDefault()
+          const form = e.target;
+          const fileName =form.file.value.split('\\')[form.file.value.split('\\').length - 1] 
+          console.log(fileName)
+     }
+
      return (
           <>
                <Head>
@@ -62,9 +69,9 @@ export default function DashboardPeserta() {
 
                               <section className="scroll-mt-20" id="upload">
                                    <h2 className="text-2xl font-semibold text-red-700 mb-4">Upload Karya</h2>
-                                   <form className="bg-red-50 p-6 rounded-lg shadow space-y-4">
+                                   <form className="bg-red-50 p-6 rounded-lg shadow space-y-4" onSubmit={handleUpload}>
                                         <label className="block text-gray-700 font-medium">Unggah file karya kamu ({fileType}):</label>
-                                        <input type="file" accept={fileType} className="block w-full border border-gray-300 rounded px-4 py-2" />
+                                        <input type="file" accept={fileType} className="block w-full border border-gray-300 rounded px-4 py-2" id='file' />
                                         <button type="submit" className="bg-red-700 text-white px-6 py-2 rounded hover:bg-red-800 transition">
                                              Upload
                                         </button>
