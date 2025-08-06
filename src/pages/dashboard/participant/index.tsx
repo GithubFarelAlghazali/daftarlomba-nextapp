@@ -47,12 +47,12 @@ export default function DashboardPeserta() {
 			const responseData = await result.json();
 			if (result.status === 200) {
 				setAlert({
-					msg: "Karya berhasil diunggah!",
+					msg: responseData.message,
 					type: "success",
 				});
 			} else {
 				setAlert({
-					msg: "Karya gagal diunggah",
+					msg: responseData.message,
 					type: "fail",
 				});
 			}
