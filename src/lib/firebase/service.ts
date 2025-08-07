@@ -117,13 +117,27 @@ export async function addParticipant(
 	}
 }
 
-// export async function getParticipants(bidang : string) {
-//      // const snapshot = await getDocs(collection(firestore, 'users'), where('bidang','==',bidang));
-//      const q = query(collection(firestore, "users"), where("bidang", "==", bidang));
-//      const snapshot = await getDocs(q)
-//      const data = snapshot.docs.map((doc) => ({
-//           id: doc.id,
-//           ...doc.data(),
-//      }));
-//      return data;
-// }
+export async function getParticipants(
+	bidang: string
+	// callback: (response: { status: boolean; message: string }) => void
+) {
+	// const snapshot = await getDocs(collection(firestore, 'users'), where('bidang','==',bidang));
+	const q = query(collection(firestore, "participants"), where("bidang", "==", bidang));
+	const snapshot = await getDocs(q);
+	const data = snapshot.docs.map((doc) => ({
+		id: doc.id,
+		...doc.data(),
+	}));
+	return data;
+	// if (data.length > 0) {
+	// 	callback({
+	// 		status: true,
+	// 		message: "Data berhasil didapat",
+	// 	});
+	// } else {
+	// 	callback({
+	// 		status: false,
+	// 		message: "Data belum terdaftar",
+	// 	});
+	// }
+}
