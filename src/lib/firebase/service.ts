@@ -127,6 +127,7 @@ export async function getParticipants(bidang: string) {
 	return data;
 }
 
+// admin services
 export async function getUsers() {
 	const q = query(collection(firestore, "users"));
 	const snapshot = await getDocs(q);
@@ -135,4 +136,45 @@ export async function getUsers() {
 		...doc.data(),
 	}));
 	return data;
+}
+
+export async function editRole(
+	userData: {
+		email: string;
+		role: string;
+	},
+	callback: (response: { status: boolean; message: string }) => void
+) {
+	// ambil data sesuai email
+	const q = query(collection(firestore, "users"), where("email", "==", userData.email));
+	const snapshot = await getDocs(q);
+	const data = snapshot.docs.map((doc) => ({
+		id: doc.id,
+		...doc.data(),
+	}));
+
+	// cek apakah email sudah terdaftar
+	if (data.length > 0) {
+		// jika sudah maka update role nya
+		const docId = data[0].id;
+		const docRef = doc(firestore, "users", docId);
+		await updateDoc(docRef, { role: userData.role })
+			.then(() => {
+				callback({
+					status: true,
+					message: "Role berhasil diuapdate",
+				});
+			})
+			.catch((error) => {
+				callback({
+					status: false,
+					message: error,
+				});
+			});
+	} else {
+		callback({
+			status: false,
+			message: "Role gagal diuapdate",
+		});
+	}
 }

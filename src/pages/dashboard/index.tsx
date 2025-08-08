@@ -20,6 +20,30 @@ export default function DashboardAdmin() {
 		fetchData();
 	}, []);
 
+	const handleUpload = async (newRole: string, targetEmail: string) => {
+		try {
+			const result = await fetch("/api/admin/edit-role", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					email: targetEmail,
+					role: newRole,
+				}),
+			});
+
+			const responseData = await result.json();
+			if (result.ok) {
+				console.log("Role berhasil diubah:", responseData.message);
+			} else {
+				console.log("Gagal mengubah role:", responseData.message);
+			}
+		} catch (error) {
+			console.error("Fetch error:", error);
+		}
+	};
+
 	return (
 		<>
 			<Head>
@@ -54,16 +78,17 @@ export default function DashboardAdmin() {
 												<td>{item.nama}</td>
 												<td>{item.email}</td>
 												<td>
-													<select name="role" id="role">
-														<option value="admin" selected={item.role === "admin"}>
-															admin
-														</option>
-														<option value="participant" selected={item.role === "participant"}>
-															participant
-														</option>
-														<option value="juri" selected={item.role === "juri"}>
-															juri
-														</option>
+													<select
+														name="role"
+														id="role"
+														value={item.role}
+														onChange={(e) => {
+															handleUpload(e.target.value, item.email);
+														}}
+													>
+														<option value="admin">admin</option>
+														<option value="participant">participant</option>
+														<option value="juri">juri</option>
 													</select>
 												</td>
 											</tr>
