@@ -53,7 +53,19 @@ export default function DashboardAdmin() {
 												<td>{index + 1}</td>
 												<td>{item.nama}</td>
 												<td>{item.email}</td>
-												<td>{item.role}</td>
+												<td>
+													<select name="role" id="role">
+														<option value="admin" selected={item.role === "admin"}>
+															admin
+														</option>
+														<option value="participant" selected={item.role === "participant"}>
+															participant
+														</option>
+														<option value="juri" selected={item.role === "juri"}>
+															juri
+														</option>
+													</select>
+												</td>
 											</tr>
 										);
 									})
