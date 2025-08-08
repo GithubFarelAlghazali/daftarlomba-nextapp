@@ -55,7 +55,7 @@ export default function DashboardJuri() {
 						<section>
 							<h2 className="text-2xl font-semibold text-red-700 mb-4">Daftar Karya</h2>
 							<table className="bg-white border-gray-300 border rounded-lg p-6 text-center  w-full">
-								<tr className="bg-red-50">
+								<tr className="bg-red-50 sticky">
 									<th>No.</th>
 									<th>Nama</th>
 									<th>Email</th>
@@ -64,7 +64,7 @@ export default function DashboardJuri() {
 								{participants.length > 0 ? (
 									participants.map((item, index) => {
 										return (
-											<tr key={index}>
+											<tr key={index} className="*:border *:border-1 *:border-gray-300 *:p-6">
 												<td>{index + 1}</td>
 												<td>{item.nama}</td>
 												<td>{item.email}</td>
