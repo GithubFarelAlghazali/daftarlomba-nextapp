@@ -1,9 +1,10 @@
-import { getFirestore, getDocs, collection, where, query, addDoc, updateDoc, doc } from "firebase/firestore";
+import { getFirestore, getDocs, collection, where, query, addDoc, updateDoc, doc, deleteDoc } from "firebase/firestore";
 import app from "./init";
 import bcrypt from "bcrypt";
 
 const firestore = getFirestore(app);
 
+// auth services
 export async function signUp(
 	userData: {
 		email: string;
@@ -65,6 +66,7 @@ export async function signIn(userData: { email: string }) {
 	}
 }
 
+// participants service
 export async function addParticipant(
 	userData: {
 		email: string;
@@ -117,6 +119,7 @@ export async function addParticipant(
 	}
 }
 
+// juri services
 export async function getParticipants(bidang: string) {
 	const q = query(collection(firestore, "participants"), where("bidang", "==", bidang));
 	const snapshot = await getDocs(q);
@@ -177,4 +180,21 @@ export async function editRole(
 			message: "Role gagal diuapdate",
 		});
 	}
+}
+
+export async function deleteUser(userId: string, callback: (response: { status: boolean; message: string }) => void) {
+	const docRef = doc(firestore, "users", userId);
+	await deleteDoc(docRef)
+		.then(() => {
+			callback({
+				status: true,
+				message: "User berhasil dihapus",
+			});
+		})
+		.catch((error) => {
+			callback({
+				status: false,
+				message: error,
+			});
+		});
 }
