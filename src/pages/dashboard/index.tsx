@@ -2,10 +2,14 @@ import { useSession } from "next-auth/react";
 import Head from "next/head";
 import Navbar from "@/components/Navbar";
 import { useEffect, useState } from "react";
+import Alert from "@/components/Alert";
+import { LoadingIcon } from "../../../public/icons";
 
 export default function DashboardAdmin() {
 	const { data }: any = useSession();
 	const [users, setUsers] = useState([]);
+	const [alert, setAlert] = useState();
+	const [loading, setLoading] = useState(false);
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -21,6 +25,7 @@ export default function DashboardAdmin() {
 	}, []);
 
 	const handleUpload = async (newRole: string, targetEmail: string) => {
+		setLoading(true);
 		try {
 			const result = await fetch("/api/admin/edit-role", {
 				method: "POST",
@@ -35,11 +40,24 @@ export default function DashboardAdmin() {
 
 			const responseData = await result.json();
 			if (result.ok) {
-				console.log("Role berhasil diubah:", responseData.message);
+				setAlert({
+					msg: responseData.message,
+					type: "success",
+				});
+				setLoading(false);
 			} else {
-				console.log("Gagal mengubah role:", responseData.message);
+				setAlert({
+					msg: responseData.message,
+					type: "fail",
+				});
+				setLoading(false);
 			}
 		} catch (error) {
+			setAlert({
+				msg: "Karya gagal diunggah",
+				type: "fail",
+			});
+			setLoading(false);
 			console.error("Fetch error:", error);
 		}
 	};
@@ -51,6 +69,7 @@ export default function DashboardAdmin() {
 				<meta name="description" content="Dashboard peserta lomba HUT RI 80" />
 			</Head>
 			<Navbar />
+			{alert && <Alert message={alert.msg} status={alert.type} />}
 			<main className="min-h-screen bg-white text-gray-800 py-16 px-4">
 				{data && (
 					<div className="max-w-5xl mx-auto space-y-16">
@@ -78,18 +97,23 @@ export default function DashboardAdmin() {
 												<td>{item.nama}</td>
 												<td>{item.email}</td>
 												<td>
-													<select
-														name="role"
-														id="role"
-														value={item.role}
-														onChange={(e) => {
-															handleUpload(e.target.value, item.email);
-														}}
-													>
-														<option value="admin">admin</option>
-														<option value="participant">participant</option>
-														<option value="juri">juri</option>
-													</select>
+													{loading ? (
+														<LoadingIcon />
+													) : (
+														<select
+															disabled={item.role === "admin"}
+															name="role"
+															id="role"
+															value={item.role}
+															onChange={(e) => {
+																handleUpload(e.target.value, item.email);
+															}}
+														>
+															<option value="admin">admin</option>
+															<option value="participant">participant</option>
+															<option value="juri">juri</option>
+														</select>
+													)}
 												</td>
 											</tr>
 										);

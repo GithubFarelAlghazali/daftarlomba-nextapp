@@ -29,9 +29,7 @@ export default function DashboardJuri() {
 			}
 		};
 		fetchData();
-	}, [data]);
-
-	console.log(participants);
+	}, []);
 
 	return (
 		<>
@@ -55,7 +53,7 @@ export default function DashboardJuri() {
 						<section>
 							<h2 className="text-2xl font-semibold text-red-700 mb-4">Daftar Karya</h2>
 							<table className="bg-white border-gray-300 border rounded-lg p-6 text-center  w-full">
-								<tr className="bg-red-50 sticky">
+								<tr className="bg-red-50 sticky *:p-3 *:border-gray-200 *:border *:border-1 top-20 outline-1 outline-gray-200">
 									<th>No.</th>
 									<th>Nama</th>
 									<th>Email</th>
@@ -74,7 +72,9 @@ export default function DashboardJuri() {
 									})
 								) : (
 									<tr>
-										<td colSpan={4}></td>
+										<td colSpan={4} className="p-6">
+											Peserta belum mengirim hasil karya
+										</td>
 									</tr>
 								)}
 							</table>
