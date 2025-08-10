@@ -25,7 +25,7 @@ export default function DashboardAdmin() {
 			}
 		};
 		fetchData();
-	}, [data]);
+	});
 
 	const handleEditRole = async (newRole: string, targetEmail: string) => {
 		setLoading(true);
@@ -71,6 +71,7 @@ export default function DashboardAdmin() {
 	};
 
 	const handleDeleteUser = async () => {
+		setLoading(true);
 		if (!deletedUser) return;
 
 		try {
@@ -91,14 +92,12 @@ export default function DashboardAdmin() {
 					type: "success",
 				});
 				setLoading(false);
-				console.log(responseData.message);
 			} else {
 				setAlert({
 					msg: responseData.message,
 					type: "fail",
 				});
 				setLoading(false);
-				console.log(responseData.message);
 			}
 		} catch (error) {
 			setAlert({
@@ -110,6 +109,7 @@ export default function DashboardAdmin() {
 		} finally {
 			setConfirmVisible(false);
 			setDeletedUser(null);
+			setLoading(false);
 		}
 	};
 
@@ -150,43 +150,41 @@ export default function DashboardAdmin() {
 									<th>Email</th>
 									<th>Role</th>
 								</tr>
-								{users.length > 1 ? (
+								{users.length >= 1 ? (
 									users.map((item, index) => {
 										return (
-											!item.role === "admin" && (
+											item.role !== "admin" && (
 												// hanya tampilkan user yang bukan admin
 												<tr key={index} className="*:border-1 *:border-gray-300 *:p-3">
-													<td>{index + 1}</td>
+													<td>{index}</td>
 													<td>{item.nama}</td>
 													<td>{item.email}</td>
 													<td className="flex gap-4 justify-evenly">
 														{loading ? (
 															<LoadingIcon />
 														) : (
-															<select
-																name="role"
-																id="role"
-																value={item.role}
-																onChange={(e) => {
-																	handleEditRole(e.target.value, item.email);
-																}}
-															>
-																<option value="admin">admin</option>
-																<option value="participant">participant</option>
-																<option value="juri">juri</option>
-															</select>
-														)}
-														{item.role === "admin" ? (
-															""
-														) : (
-															<div
-																className="bg-red-500 px-4 py-2 rounded-sm text-white cursor-pointer"
-																onClick={() => {
-																	showConfirm(item.id);
-																}}
-															>
-																<DeleteIcon />
-															</div>
+															<>
+																<select
+																	name="role"
+																	id="role"
+																	value={item.role}
+																	onChange={(e) => {
+																		handleEditRole(e.target.value, item.email);
+																	}}
+																>
+																	<option value="admin">admin</option>
+																	<option value="participant">participant</option>
+																	<option value="juri">juri</option>
+																</select>
+																<div
+																	className="bg-red-500 px-4 py-2 rounded-sm text-white cursor-pointer"
+																	onClick={() => {
+																		showConfirm(item.id);
+																	}}
+																>
+																	<DeleteIcon />
+																</div>
+															</>
 														)}
 													</td>
 												</tr>
